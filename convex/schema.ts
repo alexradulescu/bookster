@@ -16,13 +16,11 @@ export default defineSchema({
     .index('by_dateAdded', ['dateAdded']),
 
   categories: defineTable({
-    id: v.string(),
     label: v.string(),
     deletedAt: v.optional(v.number()),
   }).index('by_deletedAt', ['deletedAt']),
 
   locations: defineTable({
-    id: v.string(),
     label: v.string(),
     deletedAt: v.optional(v.number()),
   }).index('by_deletedAt', ['deletedAt']),

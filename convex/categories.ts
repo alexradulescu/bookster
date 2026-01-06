@@ -1,6 +1,5 @@
 import { v } from 'convex/values'
 import { mutation, query } from './_generated/server'
-import { v4 as uuidv4 } from 'uuid'
 
 // Get all non-deleted categories
 // Note: For small datasets like categories, in-memory filtering is acceptable
@@ -29,7 +28,6 @@ export const create = mutation({
     }
 
     const categoryId = await ctx.db.insert('categories', {
-      id: uuidv4(),
       label: args.label.trim(),
     })
 

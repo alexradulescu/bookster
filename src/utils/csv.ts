@@ -28,6 +28,8 @@ export function parseBookCSV(csvContent: string): CSVParseResult {
     return result
   }
 
+  // Note: transformHeader lowercases all headers, so field access below
+  // uses lowercase names (e.g., 'issample' not 'isSample')
   const parsed = Papa.parse<Record<string, string>>(csvContent, {
     header: true,
     skipEmptyLines: true,

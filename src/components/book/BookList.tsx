@@ -1,6 +1,6 @@
-import { useRef, useCallback } from 'react'
+import { useRef } from 'react'
 import { useVirtualizer } from '@tanstack/react-virtual'
-import { Box, Text, Center, Loader } from '@mantine/core'
+import { Box, Text, Center, Loader, Stack } from '@mantine/core'
 import { BookCard } from './BookCard'
 import type { Doc } from '../../../convex/_generated/dataModel'
 
@@ -13,8 +13,9 @@ interface BookListProps {
   isLoading?: boolean
 }
 
-// Estimated height of each book card (padding + content)
-const ESTIMATED_ROW_HEIGHT = 76
+// Estimated height of each book card (padding + content + badges)
+// Increased from 76 to 90 to account for books with multiple badges
+const ESTIMATED_ROW_HEIGHT = 90
 
 export function BookList({
   books,
@@ -26,13 +27,10 @@ export function BookList({
 }: BookListProps) {
   const parentRef = useRef<HTMLDivElement>(null)
 
-  // Memoize the estimateSize function to prevent infinite re-renders
-  const estimateSize = useCallback(() => ESTIMATED_ROW_HEIGHT, [])
-
   const virtualizer = useVirtualizer({
     count: books?.length ?? 0,
     getScrollElement: () => parentRef.current,
-    estimateSize,
+    estimateSize: () => ESTIMATED_ROW_HEIGHT,
     overscan: 5,
   })
 
@@ -40,7 +38,12 @@ export function BookList({
   if (isLoading || books === undefined) {
     return (
       <Center style={{ flex: 1 }}>
-        <Loader size="lg" />
+        <Stack align="center" gap="sm">
+          <Loader size="lg" />
+          <Text c="dimmed" size="sm">
+            Loading books...
+          </Text>
+        </Stack>
       </Center>
     )
   }

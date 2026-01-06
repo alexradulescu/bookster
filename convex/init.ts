@@ -1,5 +1,4 @@
 import { mutation, query } from './_generated/server'
-import { v4 as uuidv4 } from 'uuid'
 
 const DEFAULT_LOCATIONS = [
   'Bookshelf',
@@ -31,7 +30,6 @@ export const createDefaults = mutation({
     // Create default locations
     for (const label of DEFAULT_LOCATIONS) {
       await ctx.db.insert('locations', {
-        id: uuidv4(),
         label,
       })
     }
