@@ -10,6 +10,7 @@ import { useSearchBooks } from '../hooks/useBooks'
 import { useCategories } from '../hooks/useCategories'
 import { useLocations } from '../hooks/useLocations'
 import { useInitialization } from '../hooks/useInit'
+import { useSearch } from '../hooks/useSearch'
 import type { Doc } from '../../convex/_generated/dataModel'
 
 export const Route = createFileRoute('/')({
@@ -17,15 +18,16 @@ export const Route = createFileRoute('/')({
 })
 
 function HomePage() {
-  const [searchValue, setSearchValue] = useState('')
+  const { searchValue, setSearchValue, debouncedSearchTerm, clearSearch } =
+    useSearch({ debounceMs: 150, minLength: 3 })
   const [addModalOpen, setAddModalOpen] = useState(false)
   const [selectedBook, setSelectedBook] = useState<Doc<'books'> | null>(null)
 
   // Initialize app (creates default locations)
   useInitialization()
 
-  // Get data
-  const books = useSearchBooks(searchValue)
+  // Get data - use debounced search term for API calls
+  const books = useSearchBooks(debouncedSearchTerm)
   const categories = useCategories()
   const locations = useLocations()
 
@@ -36,22 +38,28 @@ function HomePage() {
   const handleAddModalClose = useCallback(() => {
     setAddModalOpen(false)
     // Clear search when modal closes per spec
-    setSearchValue('')
-  }, [])
+    clearSearch()
+  }, [clearSearch])
 
-  const handleBookClick = useCallback((book: Doc<'books'>) => {
-    setSelectedBook(book)
-    // Clear search when modal opens per spec
-    setSearchValue('')
-  }, [])
+  const handleBookClick = useCallback(
+    (book: Doc<'books'>) => {
+      setSelectedBook(book)
+      // Clear search when modal opens per spec
+      clearSearch()
+    },
+    [clearSearch],
+  )
 
   const handleDetailModalClose = useCallback(() => {
     setSelectedBook(null)
   }, [])
 
-  const handleSearchChange = useCallback((value: string) => {
-    setSearchValue(value)
-  }, [])
+  const handleSearchChange = useCallback(
+    (value: string) => {
+      setSearchValue(value)
+    },
+    [setSearchValue],
+  )
 
   return (
     <Box style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
