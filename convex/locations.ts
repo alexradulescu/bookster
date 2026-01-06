@@ -3,6 +3,7 @@ import { mutation, query } from './_generated/server'
 import { v4 as uuidv4 } from 'uuid'
 
 // Get all non-deleted locations
+// Note: For small datasets like locations, in-memory filtering is acceptable
 export const list = query({
   args: {},
   handler: async (ctx) => {

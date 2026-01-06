@@ -63,6 +63,7 @@ export function CategoriesTab() {
         })
       }
     } catch (error) {
+      console.error('Failed to update category:', error)
       notifications.show({
         title: 'Error',
         message: 'Failed to update category',
@@ -85,6 +86,7 @@ export function CategoriesTab() {
         })
       }
     } catch (error) {
+      console.error('Failed to delete category:', error)
       notifications.show({
         title: 'Error',
         message: 'Failed to delete category',
@@ -115,6 +117,7 @@ export function CategoriesTab() {
         })
       }
     } catch (error) {
+      console.error('Failed to create category:', error)
       notifications.show({
         title: 'Error',
         message: 'Failed to create category',

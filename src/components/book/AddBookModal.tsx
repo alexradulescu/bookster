@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
   Modal,
   Tabs,
@@ -61,7 +61,7 @@ export function AddBookModal({
   // Single book form
   const singleForm = useForm<SingleBookFormValues>({
     initialValues: {
-      title: initialTitle,
+      title: '',
       author: '',
       categoryIds: [],
       locationIds: [],
@@ -81,10 +81,21 @@ export function AddBookModal({
     },
   })
 
-  // Update initial title when it changes
-  if (initialTitle && singleForm.values.title !== initialTitle && !singleForm.isDirty('title')) {
-    singleForm.setFieldValue('title', initialTitle)
-  }
+  // Update title when initialTitle changes (e.g., from search term)
+  useEffect(() => {
+    if (opened && initialTitle && !singleForm.isDirty('title')) {
+      singleForm.setFieldValue('title', initialTitle)
+    }
+  }, [opened, initialTitle])
+
+  // Reset forms when modal closes
+  useEffect(() => {
+    if (!opened) {
+      singleForm.reset()
+      bulkForm.reset()
+      setBulkPreview(null)
+    }
+  }, [opened])
 
   const handleSingleSubmit = async (values: SingleBookFormValues) => {
     setIsProcessing(true)
@@ -113,6 +124,7 @@ export function AddBookModal({
         })
       }
     } catch (error) {
+      console.error('Failed to add book:', error)
       notifications.show({
         title: 'Error',
         message: 'Failed to add book. Please try again.',
@@ -153,6 +165,7 @@ export function AddBookModal({
       bulkForm.reset()
       setBulkPreview(null)
     } catch (error) {
+      console.error('Failed to import books:', error)
       notifications.show({
         title: 'Error',
         message: 'Failed to import books. Please try again.',
@@ -170,9 +183,6 @@ export function AddBookModal({
         return
       }
     }
-    singleForm.reset()
-    bulkForm.reset()
-    setBulkPreview(null)
     onClose()
   }
 
@@ -207,6 +217,7 @@ export function AddBookModal({
                 label="Title"
                 placeholder="Enter book title"
                 required
+                autoFocus
                 {...singleForm.getInputProps('title')}
                 styles={{ input: { fontSize: 16 } }}
               />

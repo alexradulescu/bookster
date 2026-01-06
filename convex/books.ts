@@ -1,13 +1,17 @@
 import { v } from 'convex/values'
 import { mutation, query } from './_generated/server'
-import type { Id } from './_generated/dataModel'
+import type { Id, Doc } from './_generated/dataModel'
+import type { QueryCtx, MutationCtx } from './_generated/server'
 
-// Get all books
+// Get all books sorted by dateAdded (latest first)
 export const list = query({
   args: {},
   handler: async (ctx) => {
-    const books = await ctx.db.query('books').collect()
-    return books
+    return await ctx.db
+      .query('books')
+      .withIndex('by_dateAdded')
+      .order('desc')
+      .collect()
   },
 })
 
@@ -20,16 +24,23 @@ export const get = query({
 })
 
 // Search books by title or author
+// Note: For large datasets (1000+ books), consider using Convex search indexes
 export const search = query({
   args: { term: v.string() },
   handler: async (ctx, args) => {
-    const searchTerm = args.term.toLowerCase()
+    const searchTerm = args.term.toLowerCase().trim()
 
+    // Return all books sorted by dateAdded if search term is less than 3 characters
     if (searchTerm.length < 3) {
-      // Return all books if search term is less than 3 characters
-      return await ctx.db.query('books').collect()
+      return await ctx.db
+        .query('books')
+        .withIndex('by_dateAdded')
+        .order('desc')
+        .collect()
     }
 
+    // For search, we need to load and filter since Convex doesn't support
+    // case-insensitive partial matching on regular indexes
     const allBooks = await ctx.db.query('books').collect()
 
     // Filter books matching title or author
@@ -46,8 +57,6 @@ export const search = query({
     matches.sort((a, b) => {
       const aTitle = a.title.toLowerCase()
       const bTitle = b.title.toLowerCase()
-      const aAuthor = a.author.toLowerCase()
-      const bAuthor = b.author.toLowerCase()
 
       const aStartsWith = aTitle.startsWith(searchTerm) ? 0 : 1
       const bStartsWith = bTitle.startsWith(searchTerm) ? 0 : 1
@@ -60,8 +69,8 @@ export const search = query({
       if (aTitleContains !== bTitleContains)
         return aTitleContains - bTitleContains
 
-      const aAuthorContains = aAuthor.includes(searchTerm) ? 0 : 1
-      const bAuthorContains = bAuthor.includes(searchTerm) ? 0 : 1
+      const aAuthorContains = a.author.toLowerCase().includes(searchTerm) ? 0 : 1
+      const bAuthorContains = b.author.toLowerCase().includes(searchTerm) ? 0 : 1
 
       return aAuthorContains - bAuthorContains
     })
@@ -72,17 +81,25 @@ export const search = query({
 
 // Check if a book with the same title and author exists
 async function isDuplicate(
-  ctx: any,
+  ctx: QueryCtx | MutationCtx,
   title: string,
   author: string,
   excludeId?: Id<'books'>,
 ): Promise<boolean> {
-  const allBooks = await ctx.db.query('books').collect()
-  return allBooks.some(
-    (book: any) =>
+  const normalizedTitle = title.toLowerCase().trim()
+  const normalizedAuthor = author.toLowerCase().trim()
+
+  // Use title index to narrow down results, then filter by author
+  const booksWithTitle = await ctx.db
+    .query('books')
+    .withIndex('by_title')
+    .collect()
+
+  return booksWithTitle.some(
+    (book: Doc<'books'>) =>
       book._id !== excludeId &&
-      book.title.toLowerCase() === title.toLowerCase() &&
-      book.author.toLowerCase() === author.toLowerCase(),
+      book.title.toLowerCase().trim() === normalizedTitle &&
+      book.author.toLowerCase().trim() === normalizedAuthor,
   )
 }
 
@@ -103,8 +120,8 @@ export const add = mutation({
 
     const now = Date.now()
     const bookId = await ctx.db.insert('books', {
-      title: args.title,
-      author: args.author,
+      title: args.title.trim(),
+      author: args.author.trim(),
       categoryIds: args.categoryIds ?? [],
       locationIds: args.locationIds ?? [],
       isSample: args.isSample ?? false,
@@ -134,6 +151,14 @@ export const addBulk = mutation({
     let skipped = 0
     let failed = 0
 
+    // Pre-fetch all books for duplicate checking (more efficient for bulk)
+    const existingBooks = await ctx.db.query('books').collect()
+    const existingSet = new Set(
+      existingBooks.map(
+        (b) => `${b.title.toLowerCase().trim()}|${b.author.toLowerCase().trim()}`,
+      ),
+    )
+
     for (const book of args.books) {
       // Validate required fields
       if (!book.title?.trim() || !book.author?.trim()) {
@@ -141,8 +166,10 @@ export const addBulk = mutation({
         continue
       }
 
-      // Check for duplicates
-      if (await isDuplicate(ctx, book.title, book.author)) {
+      const key = `${book.title.toLowerCase().trim()}|${book.author.toLowerCase().trim()}`
+
+      // Check for duplicates (including ones we just added)
+      if (existingSet.has(key)) {
         skipped++
         continue
       }
@@ -156,6 +183,9 @@ export const addBulk = mutation({
         dateAdded: now,
         lastUpdated: now,
       })
+
+      // Add to set to prevent duplicates within the same batch
+      existingSet.add(key)
       imported++
     }
 
@@ -184,8 +214,8 @@ export const update = mutation({
 
     // Check for duplicates if title or author changed
     if (
-      newTitle.toLowerCase() !== existing.title.toLowerCase() ||
-      newAuthor.toLowerCase() !== existing.author.toLowerCase()
+      newTitle.toLowerCase().trim() !== existing.title.toLowerCase().trim() ||
+      newAuthor.toLowerCase().trim() !== existing.author.toLowerCase().trim()
     ) {
       if (await isDuplicate(ctx, newTitle, newAuthor, args.id)) {
         return { success: false, error: 'duplicate', message: 'Book already exists' }
@@ -193,8 +223,8 @@ export const update = mutation({
     }
 
     await ctx.db.patch(args.id, {
-      ...(args.title !== undefined && { title: args.title }),
-      ...(args.author !== undefined && { author: args.author }),
+      ...(args.title !== undefined && { title: args.title.trim() }),
+      ...(args.author !== undefined && { author: args.author.trim() }),
       ...(args.categoryIds !== undefined && { categoryIds: args.categoryIds }),
       ...(args.locationIds !== undefined && { locationIds: args.locationIds }),
       ...(args.isSample !== undefined && { isSample: args.isSample }),

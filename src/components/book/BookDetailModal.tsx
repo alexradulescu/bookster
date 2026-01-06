@@ -115,6 +115,7 @@ export function BookDetailModal({
         })
       }
     } catch (error) {
+      console.error('Failed to update book:', error)
       notifications.show({
         title: 'Error',
         message: 'Failed to update book. Please try again.',
@@ -153,6 +154,7 @@ export function BookDetailModal({
         onClose()
       }
     } catch (error) {
+      console.error('Failed to delete book:', error)
       notifications.show({
         title: 'Error',
         message: 'Failed to delete book. Please try again.',

@@ -40,6 +40,7 @@ export function ConfigTab() {
         color: 'green',
       })
     } catch (error) {
+      console.error('Failed to update sort order:', error)
       notifications.show({
         title: 'Error',
         message: 'Failed to update settings',
@@ -64,6 +65,7 @@ export function ConfigTab() {
         color: 'green',
       })
     } catch (error) {
+      console.error('Failed to update theme:', error)
       notifications.show({
         title: 'Error',
         message: 'Failed to update settings',

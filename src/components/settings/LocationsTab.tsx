@@ -63,6 +63,7 @@ export function LocationsTab() {
         })
       }
     } catch (error) {
+      console.error('Failed to update location:', error)
       notifications.show({
         title: 'Error',
         message: 'Failed to update location',
@@ -85,6 +86,7 @@ export function LocationsTab() {
         })
       }
     } catch (error) {
+      console.error('Failed to delete location:', error)
       notifications.show({
         title: 'Error',
         message: 'Failed to delete location',
@@ -115,6 +117,7 @@ export function LocationsTab() {
         })
       }
     } catch (error) {
+      console.error('Failed to create location:', error)
       notifications.show({
         title: 'Error',
         message: 'Failed to create location',

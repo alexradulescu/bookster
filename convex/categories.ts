@@ -3,6 +3,7 @@ import { mutation, query } from './_generated/server'
 import { v4 as uuidv4 } from 'uuid'
 
 // Get all non-deleted categories
+// Note: For small datasets like categories, in-memory filtering is acceptable
 export const list = query({
   args: {},
   handler: async (ctx) => {
