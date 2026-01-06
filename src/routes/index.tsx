@@ -4,6 +4,8 @@ import { Box } from '@mantine/core'
 import { Header } from '../components/common/Header'
 import { BottomBar } from '../components/common/BottomBar'
 import { BookList } from '../components/book/BookList'
+import { AddBookModal } from '../components/book/AddBookModal'
+import { BookDetailModal } from '../components/book/BookDetailModal'
 import { useSearchBooks } from '../hooks/useBooks'
 import { useCategories } from '../hooks/useCategories'
 import { useLocations } from '../hooks/useLocations'
@@ -16,8 +18,8 @@ export const Route = createFileRoute('/')({
 
 function HomePage() {
   const [searchValue, setSearchValue] = useState('')
-  const [_addModalOpen, setAddModalOpen] = useState(false)
-  const [_selectedBook, setSelectedBook] = useState<Doc<'books'> | null>(null)
+  const [addModalOpen, setAddModalOpen] = useState(false)
+  const [selectedBook, setSelectedBook] = useState<Doc<'books'> | null>(null)
 
   // Initialize app (creates default locations)
   useInitialization()
@@ -31,8 +33,20 @@ function HomePage() {
     setAddModalOpen(true)
   }, [])
 
+  const handleAddModalClose = useCallback(() => {
+    setAddModalOpen(false)
+    // Clear search when modal closes per spec
+    setSearchValue('')
+  }, [])
+
   const handleBookClick = useCallback((book: Doc<'books'>) => {
     setSelectedBook(book)
+    // Clear search when modal opens per spec
+    setSearchValue('')
+  }, [])
+
+  const handleDetailModalClose = useCallback(() => {
+    setSelectedBook(null)
   }, [])
 
   const handleSearchChange = useCallback((value: string) => {
@@ -55,8 +69,16 @@ function HomePage() {
         onSearchChange={handleSearchChange}
         onAddClick={handleAddClick}
       />
-      {/* AddBookModal will be added in Phase 4 */}
-      {/* BookDetailModal will be added in Phase 4 */}
+      <AddBookModal
+        opened={addModalOpen}
+        onClose={handleAddModalClose}
+        initialTitle={searchValue.length >= 3 ? searchValue : ''}
+      />
+      <BookDetailModal
+        book={selectedBook}
+        opened={selectedBook !== null}
+        onClose={handleDetailModalClose}
+      />
     </Box>
   )
 }
