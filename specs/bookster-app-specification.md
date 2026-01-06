@@ -111,9 +111,9 @@ A personal Progressive Web App (PWA) for tracking books across multiple librarie
 - **Book Cover**:
   - Very small thumbnail (like Kindle/Apple Books iOS)
   - Standard book aspect ratio (2:3)
-  - Fallback design: Pastel color background + 3-letter initials rotated 90° (vertical)
+  - Design: Pastel color background + 3-letter initials rotated 90° counter-clockwise (vertical text on left side)
   - Font size: 10-12px (whichever fits elegantly)
-  - Color generation: Hash-based on book title for consistency
+  - Color generation: Hash-based on book title for consistency (same book always same color)
   - Text color: Auto-calculated for contrast based on theme
 
 - **Category Badges**:
@@ -273,8 +273,6 @@ A personal Progressive Web App (PWA) for tracking books across multiple librarie
   - Options: Date Added, Title, Author, Category, Location
 - **Theme**: Dropdown
   - Options: System, Light, Dark
-- **Reprocess All Book Covers**: Button (not needed for V1 since no API fetching)
-  - Loading state on button when processing
 
 **Tab 2: Categories**
 - **UI**: Table with inline editing
@@ -313,22 +311,22 @@ A personal Progressive Web App (PWA) for tracking books across multiple librarie
 - **Service Worker**: Basic offline caching (optional for V1)
 - **Safe Area Padding**: Account for iOS notches and home indicators
 
-### 2. Book Cover Fallback
+### 2. Book Cover Design
 
-Since API fetching is postponed to a future feature:
+**Important**: Book covers are NOT fetched from external APIs. All covers use the generated design below.
 
 - **Aspect Ratio**: Standard book cover (2:3 width:height)
 - **Background**: Pastel color
   - Generated using hash of book title for consistency
   - Ensure same book always gets same color
-- **Text**: 3-letter initials, rotated 90° (vertical text)
+- **Text**: 3-letter initials, rotated 90° counter-clockwise (vertical text on left side of cover)
   - Logic:
     - If title has multiple words: First letter of each of first 3 words (e.g., "The Great Gatsby" → "TGG")
     - If title has 2 words: First letter of each + first letter again (e.g., "American Gods" → "AGa")
     - If title has 1 word: First 3 letters (e.g., "Dune" → "Dun")
   - Font size: 10-12px
   - Color: Auto-calculated for contrast against background color and current theme
-- **Positioning**: Rotated 90° clockwise to fit on the long side of the book cover
+- **Positioning**: Letters rotated 90° counter-clockwise, positioned vertically along the left side of the book cover
 
 ### 3. Search & Filter
 
@@ -370,8 +368,7 @@ Since API fetching is postponed to a future feature:
 
 - **Initial Load**: "Loading books..." message
 - **Convex Strategy**: Use `useQuery` with infinite cache, keep previous data while fetching updates
-- **Book Cover Loading**: Simple loading indicator on fallback cover (not needed for V1)
-- **Button States**: Loading state on "Save", "Delete", "Reprocess All Covers" buttons
+- **Button States**: Loading state on "Save" and "Delete" buttons
 
 ### 8. Theme
 
@@ -554,7 +551,7 @@ export default defineSchema({
 ### Phase 3: Core UI Components
 1. Create Header component (sticky, app name, settings icon)
 2. Create BottomBar component (search input, add button)
-3. Create BookCover component (fallback with pastel colors and rotated initials)
+3. Create BookCover component (pastel colors and 3-letter initials rotated 90° counter-clockwise)
 4. Create BookCard component (layout with cover, title, author, badges)
 5. Create BookList component with TanStack Virtual
 6. Implement error boundary
@@ -578,7 +575,7 @@ export default defineSchema({
 
 ### Phase 6: Settings Page
 1. Create SettingsPage with tabs (Config, Categories, Locations)
-2. Implement ConfigTab (sort order, theme, reprocess button placeholder)
+2. Implement ConfigTab (sort order and theme settings)
 3. Implement CategoriesTab (table with inline editing)
 4. Implement LocationsTab (same as categories)
 5. Implement soft delete logic
@@ -633,7 +630,7 @@ export default defineSchema({
 
 ## Future Features (Out of Scope for V1)
 
-- Cover image fetching from OpenLibrary & Google Books APIs
+- Cover image fetching from OpenLibrary & Google Books APIs (with manual refetch option)
 - ISBN field for better API lookups
 - Reading status (not started, reading, finished)
 - Personal notes/comments per book
@@ -726,8 +723,6 @@ export default defineSchema({
 │                                     │
 │ Theme:                              │
 │ [System ▼]                          │
-│                                     │
-│ [Reprocess All Book Covers]         │
 │                                     │
 └─────────────────────────────────────┘
 ```
