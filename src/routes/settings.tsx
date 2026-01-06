@@ -1,6 +1,9 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { Container, Title, Text, Stack, ActionIcon, Group, Box } from '@mantine/core'
+import { Container, Title, ActionIcon, Group, Box, Tabs } from '@mantine/core'
 import { ArrowLeft } from 'lucide-react'
+import { ConfigTab } from '../components/settings/ConfigTab'
+import { CategoriesTab } from '../components/settings/CategoriesTab'
+import { LocationsTab } from '../components/settings/LocationsTab'
 
 export const Route = createFileRoute('/settings')({
   component: SettingsPage,
@@ -35,12 +38,26 @@ function SettingsPage() {
           </Title>
         </Group>
       </Box>
-      <Container size="sm" py="xl">
-        <Stack align="center" gap="md">
-          <Text c="dimmed" ta="center">
-            Settings page will be implemented in Phase 6.
-          </Text>
-        </Stack>
+      <Container size="sm" py="md" style={{ flex: 1, overflow: 'auto' }}>
+        <Tabs defaultValue="config">
+          <Tabs.List>
+            <Tabs.Tab value="config">Config</Tabs.Tab>
+            <Tabs.Tab value="categories">Categories</Tabs.Tab>
+            <Tabs.Tab value="locations">Locations</Tabs.Tab>
+          </Tabs.List>
+
+          <Tabs.Panel value="config" pt="md">
+            <ConfigTab />
+          </Tabs.Panel>
+
+          <Tabs.Panel value="categories" pt="md">
+            <CategoriesTab />
+          </Tabs.Panel>
+
+          <Tabs.Panel value="locations" pt="md">
+            <LocationsTab />
+          </Tabs.Panel>
+        </Tabs>
       </Container>
     </Box>
   )
