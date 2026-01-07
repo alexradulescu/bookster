@@ -13,21 +13,24 @@ const HEADER_HEIGHT = 48
 
 function SettingsPage() {
   return (
-    <Box style={{ display: 'flex', flexDirection: 'column', flex: 1, minHeight: 0 }}>
+    <>
       <Box
         component="header"
         style={{
           position: 'fixed',
-          top: 'var(--safe-area-inset-top)',
-          left: 'var(--safe-area-inset-left)',
-          right: 'var(--safe-area-inset-right)',
+          top: 0,
+          left: 0,
+          right: 0,
           zIndex: 100,
-          height: HEADER_HEIGHT,
+          height: `calc(${HEADER_HEIGHT}px + var(--safe-area-inset-top))`,
+          paddingTop: 'var(--safe-area-inset-top)',
+          paddingLeft: 'var(--safe-area-inset-left)',
+          paddingRight: 'var(--safe-area-inset-right)',
           backgroundColor: 'var(--mantine-color-body)',
           borderBottom: '1px solid var(--mantine-color-default-border)',
         }}
       >
-        <Group h="100%" px="md" gap="sm">
+        <Group h={HEADER_HEIGHT} px="md" gap="sm">
           <ActionIcon
             component={Link}
             to="/"
@@ -48,18 +51,17 @@ function SettingsPage() {
         py="md"
         px="md"
         style={{
-          flex: 1,
-          minHeight: 0,
+          position: 'fixed',
+          top: `calc(${HEADER_HEIGHT}px + var(--safe-area-inset-top))`,
+          bottom: 0,
+          left: 'var(--safe-area-inset-left)',
+          right: 'var(--safe-area-inset-right)',
           overflow: 'auto',
           WebkitOverflowScrolling: 'touch',
-          maxWidth: 600,
-          width: '100%',
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          paddingTop: HEADER_HEIGHT,
           paddingBottom: 'calc(var(--safe-area-inset-bottom) + 16px)',
         }}
       >
+        <Box style={{ maxWidth: 600, marginLeft: 'auto', marginRight: 'auto' }}>
         <Tabs defaultValue="config">
           <Tabs.List>
             <Tabs.Tab value="config">Config</Tabs.Tab>
@@ -79,7 +81,8 @@ function SettingsPage() {
             <LocationsTab />
           </Tabs.Panel>
         </Tabs>
+        </Box>
       </Box>
-    </Box>
+    </>
   )
 }

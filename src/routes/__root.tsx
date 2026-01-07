@@ -14,12 +14,7 @@ function RootComponent() {
         <Box
           style={{
             height: '100svh',
-            display: 'flex',
-            flexDirection: 'column',
             overflow: 'hidden',
-            paddingTop: 'var(--safe-area-inset-top)',
-            paddingLeft: 'var(--safe-area-inset-left)',
-            paddingRight: 'var(--safe-area-inset-right)',
           }}
         >
           <Outlet />

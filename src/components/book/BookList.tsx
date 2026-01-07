@@ -15,8 +15,19 @@ interface BookListProps {
 
 // Estimated height of each book card (padding + content + badges)
 const ESTIMATED_ROW_HEIGHT = 90
-const HEADER_HEIGHT = 48 // Fixed header height
-const BOTTOM_PADDING = 60 // Bottom bar height + safe area approximation
+const HEADER_HEIGHT = 48
+const FOOTER_HEIGHT = 48
+
+// Common styles for the fixed main content area
+const mainContentStyle = {
+  position: 'fixed' as const,
+  top: `calc(${HEADER_HEIGHT}px + var(--safe-area-inset-top))`,
+  bottom: `calc(${FOOTER_HEIGHT}px + var(--safe-area-inset-bottom))`,
+  left: 'var(--safe-area-inset-left)',
+  right: 'var(--safe-area-inset-right)',
+  overflow: 'auto' as const,
+  WebkitOverflowScrolling: 'touch' as const,
+}
 
 export function BookList({
   books,
@@ -39,13 +50,7 @@ export function BookList({
   // Loading state
   if (isLoading || books === undefined) {
     return (
-      <Center
-        style={{
-          flex: 1,
-          minHeight: 0,
-          paddingTop: HEADER_HEIGHT,
-        }}
-      >
+      <Center style={mainContentStyle}>
         <Stack align="center" gap="sm">
           <Loader size="lg" />
           <Text c="dimmed" size="sm">
@@ -59,13 +64,7 @@ export function BookList({
   // Empty state
   if (books.length === 0) {
     return (
-      <Center
-        style={{
-          flex: 1,
-          minHeight: 0,
-          paddingTop: HEADER_HEIGHT,
-        }}
-      >
+      <Center style={mainContentStyle}>
         <Text c="dimmed" ta="center" px="md">
           {isSearching
             ? `No '${searchTerm}' book exists yet. Are you buying it?`
@@ -78,16 +77,7 @@ export function BookList({
   // Use simple list for search results (typically < 50 items)
   if (isSearching) {
     return (
-      <Box
-        style={{
-          flex: 1,
-          minHeight: 0,
-          overflow: 'auto',
-          WebkitOverflowScrolling: 'touch',
-          paddingTop: HEADER_HEIGHT,
-          paddingBottom: `calc(${BOTTOM_PADDING}px + var(--safe-area-inset-bottom))`,
-        }}
-      >
+      <Box style={mainContentStyle}>
         {books.map((book) => (
           <BookCard
             key={book._id}
@@ -106,17 +96,7 @@ export function BookList({
   const totalSize = virtualizer.getTotalSize()
 
   return (
-    <Box
-      ref={parentRef}
-      style={{
-        flex: 1,
-        minHeight: 0,
-        overflow: 'auto',
-        WebkitOverflowScrolling: 'touch',
-        paddingTop: HEADER_HEIGHT,
-        paddingBottom: `calc(${BOTTOM_PADDING}px + var(--safe-area-inset-bottom))`,
-      }}
-    >
+    <Box ref={parentRef} style={mainContentStyle}>
       <Box
         style={{
           height: totalSize,
