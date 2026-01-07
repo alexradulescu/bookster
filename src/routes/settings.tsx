@@ -9,14 +9,20 @@ export const Route = createFileRoute('/settings')({
   component: SettingsPage,
 })
 
+const HEADER_HEIGHT = 48
+
 function SettingsPage() {
   return (
     <Box style={{ display: 'flex', flexDirection: 'column', flex: 1, minHeight: 0 }}>
       <Box
         component="header"
         style={{
-          flexShrink: 0,
-          height: 48,
+          position: 'fixed',
+          top: 'var(--safe-area-inset-top)',
+          left: 'var(--safe-area-inset-left)',
+          right: 'var(--safe-area-inset-right)',
+          zIndex: 100,
+          height: HEADER_HEIGHT,
           backgroundColor: 'var(--mantine-color-body)',
           borderBottom: '1px solid var(--mantine-color-default-border)',
         }}
@@ -50,6 +56,7 @@ function SettingsPage() {
           width: '100%',
           marginLeft: 'auto',
           marginRight: 'auto',
+          paddingTop: HEADER_HEIGHT,
           paddingBottom: 'calc(var(--safe-area-inset-bottom) + 16px)',
         }}
       >

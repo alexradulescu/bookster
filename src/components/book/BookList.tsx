@@ -15,6 +15,7 @@ interface BookListProps {
 
 // Estimated height of each book card (padding + content + badges)
 const ESTIMATED_ROW_HEIGHT = 90
+const HEADER_HEIGHT = 48 // Fixed header height
 const BOTTOM_PADDING = 60 // Bottom bar height + safe area approximation
 
 export function BookList({
@@ -42,6 +43,7 @@ export function BookList({
         style={{
           flex: 1,
           minHeight: 0,
+          paddingTop: HEADER_HEIGHT,
         }}
       >
         <Stack align="center" gap="sm">
@@ -61,6 +63,7 @@ export function BookList({
         style={{
           flex: 1,
           minHeight: 0,
+          paddingTop: HEADER_HEIGHT,
         }}
       >
         <Text c="dimmed" ta="center" px="md">
@@ -81,6 +84,7 @@ export function BookList({
           minHeight: 0,
           overflow: 'auto',
           WebkitOverflowScrolling: 'touch',
+          paddingTop: HEADER_HEIGHT,
           paddingBottom: `calc(${BOTTOM_PADDING}px + var(--safe-area-inset-bottom))`,
         }}
       >
@@ -109,6 +113,7 @@ export function BookList({
         minHeight: 0,
         overflow: 'auto',
         WebkitOverflowScrolling: 'touch',
+        paddingTop: HEADER_HEIGHT,
         paddingBottom: `calc(${BOTTOM_PADDING}px + var(--safe-area-inset-bottom))`,
       }}
     >

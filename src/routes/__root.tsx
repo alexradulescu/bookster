@@ -13,7 +13,7 @@ function RootComponent() {
       <ConvexProvider>
         <Box
           style={{
-            height: '100dvh',
+            height: '100svh',
             display: 'flex',
             flexDirection: 'column',
             overflow: 'hidden',

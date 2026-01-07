@@ -17,8 +17,8 @@ html, body, #app {
   overflow: hidden;
 }
 
-/* Fallback for browsers that don't support dvh */
-@supports not (height: 100dvh) {
+/* Fallback for browsers that don't support svh */
+@supports not (height: 100svh) {
   #app {
     height: 100vh;
   }

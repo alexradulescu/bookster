@@ -7,7 +7,11 @@ export function Header() {
     <Box
       component="header"
       style={{
-        flexShrink: 0,
+        position: 'fixed',
+        top: 'var(--safe-area-inset-top)',
+        left: 'var(--safe-area-inset-left)',
+        right: 'var(--safe-area-inset-right)',
+        zIndex: 100,
         height: 48,
         backgroundColor: 'var(--mantine-color-body)',
         borderBottom: '1px solid var(--mantine-color-default-border)',
