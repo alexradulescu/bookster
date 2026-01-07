@@ -42,7 +42,7 @@ function SettingsPage() {
       </Box>
       <Box
         py="md"
-        px={8}
+        px="md"
         style={{
           flex: 1,
           overflow: 'auto',

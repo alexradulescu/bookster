@@ -14,8 +14,8 @@ interface BookListProps {
 }
 
 // Estimated height of each book card (padding + content + badges)
-// Increased from 76 to 90 to account for books with multiple badges
 const ESTIMATED_ROW_HEIGHT = 90
+const BOTTOM_PADDING = 60 // Bottom bar height + safe area approximation
 
 export function BookList({
   books,
@@ -26,9 +26,10 @@ export function BookList({
   isLoading,
 }: BookListProps) {
   const parentRef = useRef<HTMLDivElement>(null)
+  const isSearching = searchTerm.length >= 3
 
   const virtualizer = useVirtualizer({
-    count: books?.length ?? 0,
+    count: isSearching ? 0 : (books?.length ?? 0),
     getScrollElement: () => parentRef.current,
     estimateSize: () => ESTIMATED_ROW_HEIGHT,
     overscan: 5,
@@ -65,7 +66,7 @@ export function BookList({
         }}
       >
         <Text c="dimmed" ta="center" px="md">
-          {searchTerm.length >= 3
+          {isSearching
             ? `No '${searchTerm}' book exists yet. Are you buying it?`
             : "No books here yet. Let's add some"}
         </Text>
@@ -73,11 +74,32 @@ export function BookList({
     )
   }
 
-  const virtualItems = virtualizer.getVirtualItems()
+  // Use simple list for search results (typically < 50 items)
+  if (isSearching) {
+    return (
+      <Box
+        style={{
+          flex: 1,
+          overflow: 'auto',
+          paddingBottom: `calc(${BOTTOM_PADDING}px + var(--safe-area-inset-bottom))`,
+        }}
+      >
+        {books.map((book) => (
+          <BookCard
+            key={book._id}
+            book={book}
+            categories={categories}
+            locations={locations}
+            onClick={() => onBookClick(book)}
+          />
+        ))}
+      </Box>
+    )
+  }
 
-  // Calculate actual content height to avoid excessive scroll area
+  // Use virtualized list for full book list
+  const virtualItems = virtualizer.getVirtualItems()
   const totalSize = virtualizer.getTotalSize()
-  const bottomPadding = 60 // Bottom bar height + safe area approximation
 
   return (
     <Box
@@ -85,7 +107,7 @@ export function BookList({
       style={{
         flex: 1,
         overflow: 'auto',
-        paddingBottom: `calc(${bottomPadding}px + var(--safe-area-inset-bottom))`,
+        paddingBottom: `calc(${BOTTOM_PADDING}px + var(--safe-area-inset-bottom))`,
       }}
     >
       <Box
