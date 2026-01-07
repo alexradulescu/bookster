@@ -42,7 +42,6 @@ export function BookList({
         style={{
           flex: 1,
           minHeight: 0,
-          maxHeight: 'calc(100vh - 120px)',
         }}
       >
         <Stack align="center" gap="sm">
@@ -62,7 +61,6 @@ export function BookList({
         style={{
           flex: 1,
           minHeight: 0,
-          maxHeight: 'calc(100vh - 120px)',
         }}
       >
         <Text c="dimmed" ta="center" px="md">
@@ -80,7 +78,9 @@ export function BookList({
       <Box
         style={{
           flex: 1,
+          minHeight: 0,
           overflow: 'auto',
+          WebkitOverflowScrolling: 'touch',
           paddingBottom: `calc(${BOTTOM_PADDING}px + var(--safe-area-inset-bottom))`,
         }}
       >
@@ -106,7 +106,9 @@ export function BookList({
       ref={parentRef}
       style={{
         flex: 1,
+        minHeight: 0,
         overflow: 'auto',
+        WebkitOverflowScrolling: 'touch',
         paddingBottom: `calc(${BOTTOM_PADDING}px + var(--safe-area-inset-bottom))`,
       }}
     >

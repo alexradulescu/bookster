@@ -7,9 +7,7 @@ export function Header() {
     <Box
       component="header"
       style={{
-        position: 'sticky',
-        top: 0,
-        zIndex: 100,
+        flexShrink: 0,
         height: 48,
         backgroundColor: 'var(--mantine-color-body)',
         borderBottom: '1px solid var(--mantine-color-default-border)',

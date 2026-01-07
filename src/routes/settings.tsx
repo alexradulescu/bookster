@@ -11,13 +11,11 @@ export const Route = createFileRoute('/settings')({
 
 function SettingsPage() {
   return (
-    <Box style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+    <Box style={{ display: 'flex', flexDirection: 'column', flex: 1, minHeight: 0 }}>
       <Box
         component="header"
         style={{
-          position: 'sticky',
-          top: 0,
-          zIndex: 100,
+          flexShrink: 0,
           height: 48,
           backgroundColor: 'var(--mantine-color-body)',
           borderBottom: '1px solid var(--mantine-color-default-border)',
@@ -45,11 +43,14 @@ function SettingsPage() {
         px="md"
         style={{
           flex: 1,
+          minHeight: 0,
           overflow: 'auto',
+          WebkitOverflowScrolling: 'touch',
           maxWidth: 600,
           width: '100%',
           marginLeft: 'auto',
           marginRight: 'auto',
+          paddingBottom: 'calc(var(--safe-area-inset-bottom) + 16px)',
         }}
       >
         <Tabs defaultValue="config">
