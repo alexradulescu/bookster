@@ -21,8 +21,8 @@ const FOOTER_HEIGHT = 48
 // Common styles for the fixed main content area
 const mainContentStyle = {
   position: 'fixed' as const,
-  top: `calc(${HEADER_HEIGHT}px + var(--safe-area-inset-top))`,
-  bottom: `calc(${FOOTER_HEIGHT}px + var(--safe-area-inset-bottom))`,
+  top: HEADER_HEIGHT,
+  bottom: FOOTER_HEIGHT,
   left: 'var(--safe-area-inset-left)',
   right: 'var(--safe-area-inset-right)',
   overflow: 'auto' as const,

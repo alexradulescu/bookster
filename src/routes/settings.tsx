@@ -22,8 +22,7 @@ function SettingsPage() {
           left: 0,
           right: 0,
           zIndex: 100,
-          height: `calc(${HEADER_HEIGHT}px + var(--safe-area-inset-top))`,
-          paddingTop: 'var(--safe-area-inset-top)',
+          height: HEADER_HEIGHT,
           paddingLeft: 'var(--safe-area-inset-left)',
           paddingRight: 'var(--safe-area-inset-right)',
           backgroundColor: 'var(--mantine-color-body)',
@@ -52,13 +51,13 @@ function SettingsPage() {
         px="md"
         style={{
           position: 'fixed',
-          top: `calc(${HEADER_HEIGHT}px + var(--safe-area-inset-top))`,
+          top: HEADER_HEIGHT,
           bottom: 0,
           left: 'var(--safe-area-inset-left)',
           right: 'var(--safe-area-inset-right)',
           overflow: 'auto',
           WebkitOverflowScrolling: 'touch',
-          paddingBottom: 'calc(var(--safe-area-inset-bottom) + 16px)',
+          paddingBottom: 16,
         }}
       >
         <Box style={{ maxWidth: 600, marginLeft: 'auto', marginRight: 'auto' }}>

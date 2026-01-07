@@ -38,8 +38,6 @@ export function BottomBar({
     }
   }, [])
 
-  const isKeyboardOpen = keyboardOffset > 0
-
   return (
     <Box
       component="footer"
@@ -49,8 +47,7 @@ export function BottomBar({
         left: 0,
         right: 0,
         zIndex: 100,
-        height: isKeyboardOpen ? FOOTER_HEIGHT : `calc(${FOOTER_HEIGHT}px + var(--safe-area-inset-bottom))`,
-        paddingBottom: isKeyboardOpen ? 0 : 'var(--safe-area-inset-bottom)',
+        height: FOOTER_HEIGHT,
         paddingLeft: 'var(--safe-area-inset-left)',
         paddingRight: 'var(--safe-area-inset-right)',
         backgroundColor: 'var(--mantine-color-body)',
