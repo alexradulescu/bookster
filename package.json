@@ -12,32 +12,37 @@
     "check": "biome check"
   },
   "dependencies": {
-    "@convex-dev/react-query": "0.0.0-alpha.11",
-    "@tailwindcss/vite": "^4.0.6",
-    "@tanstack/react-devtools": "^0.7.0",
+    "@mantine/core": "^7.17.0",
+    "@mantine/form": "^7.17.0",
+    "@mantine/hooks": "^7.17.0",
+    "@mantine/notifications": "^7.17.0",
+    "@tanstack/react-query": "^5.62.0",
     "@tanstack/react-router": "^1.132.0",
     "@tanstack/react-router-devtools": "^1.132.0",
+    "@tanstack/react-virtual": "^3.11.0",
     "@tanstack/router-plugin": "^1.132.0",
     "convex": "^1.27.3",
     "lucide-react": "^0.544.0",
+    "papaparse": "^5.5.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "tailwindcss": "^4.0.6"
+    "uuid": "^11.0.5"
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.4",
-    "@tanstack/devtools-vite": "^0.3.11",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.2.0",
     "@types/node": "^22.10.2",
+    "@types/papaparse": "^5.3.15",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
+    "@types/uuid": "^10.0.0",
     "@vitejs/plugin-react": "^5.0.4",
     "babel-plugin-react-compiler": "^1.0.0",
     "jsdom": "^27.0.0",
     "typescript": "^5.7.2",
     "vite": "^7.1.7",
-    "vitest": "^3.0.5",
-    "web-vitals": "^5.1.0"
+    "vite-plugin-pwa": "^1.0.0",
+    "vitest": "^3.0.5"
   }
 }

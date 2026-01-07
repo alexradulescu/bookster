@@ -1,12 +1,13 @@
 import { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider, createRouter } from '@tanstack/react-router'
+import { MantineProvider, ColorSchemeScript } from '@mantine/core'
+import { Notifications } from '@mantine/notifications'
 
-// Import the generated route tree
 import { routeTree } from './routeTree.gen'
+import { theme } from './styles/theme'
 
 import './styles.css'
-import reportWebVitals from './reportWebVitals.ts'
 
 // Create a new router instance
 const router = createRouter({
@@ -31,12 +32,11 @@ if (rootElement && !rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement)
   root.render(
     <StrictMode>
-      <RouterProvider router={router} />
+      <ColorSchemeScript defaultColorScheme="auto" />
+      <MantineProvider theme={theme} defaultColorScheme="auto">
+        <Notifications position="top-center" />
+        <RouterProvider router={router} />
+      </MantineProvider>
     </StrictMode>,
   )
 }
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals()
