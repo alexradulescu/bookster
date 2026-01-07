@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from 'react'
 import { Group, TextInput, ActionIcon, Box } from '@mantine/core'
 import { Plus, X, Search } from 'lucide-react'
 
+const FOOTER_HEIGHT = 48
+
 interface BottomBarProps {
   searchValue: string
   onSearchChange: (value: string) => void
@@ -45,15 +47,15 @@ export function BottomBar({
         left: 0,
         right: 0,
         zIndex: 100,
-        backgroundColor: 'var(--mantine-color-body)',
-        borderTop: '1px solid var(--mantine-color-default-border)',
-        paddingBottom: keyboardOffset > 0 ? 4 : 'calc(var(--safe-area-inset-bottom) + 2px)',
+        height: FOOTER_HEIGHT,
         paddingLeft: 'var(--safe-area-inset-left)',
         paddingRight: 'var(--safe-area-inset-right)',
+        backgroundColor: 'var(--mantine-color-body)',
+        borderTop: '1px solid var(--mantine-color-default-border)',
         transition: 'bottom 0.1s ease-out',
       }}
     >
-      <Group gap={8} p="sm" wrap="nowrap">
+      <Group gap={8} h={FOOTER_HEIGHT} px="sm" wrap="nowrap">
         <TextInput
           ref={inputRef}
           placeholder="Search..."

@@ -1,6 +1,5 @@
 import { useState, useCallback, useMemo } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
-import { Box } from '@mantine/core'
 import { Header } from '../components/common/Header'
 import { BottomBar } from '../components/common/BottomBar'
 import { BookList } from '../components/book/BookList'
@@ -124,7 +123,7 @@ function HomePage() {
   )
 
   return (
-    <Box style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+    <>
       <Header />
       <BookList
         books={sortedBooks}
@@ -149,6 +148,6 @@ function HomePage() {
         opened={selectedBook !== null}
         onClose={handleDetailModalClose}
       />
-    </Box>
+    </>
   )
 }

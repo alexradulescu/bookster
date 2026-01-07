@@ -13,13 +13,8 @@ function RootComponent() {
       <ConvexProvider>
         <Box
           style={{
-            minHeight: '100vh',
-            display: 'flex',
-            flexDirection: 'column',
-            paddingTop: 'var(--safe-area-inset-top)',
-            paddingBottom: 'var(--safe-area-inset-bottom)',
-            paddingLeft: 'var(--safe-area-inset-left)',
-            paddingRight: 'var(--safe-area-inset-right)',
+            height: '100svh',
+            overflow: 'hidden',
           }}
         >
           <Outlet />

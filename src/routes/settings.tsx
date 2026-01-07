@@ -9,21 +9,27 @@ export const Route = createFileRoute('/settings')({
   component: SettingsPage,
 })
 
+const HEADER_HEIGHT = 48
+
 function SettingsPage() {
   return (
-    <Box style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+    <>
       <Box
         component="header"
         style={{
-          position: 'sticky',
+          position: 'fixed',
           top: 0,
+          left: 0,
+          right: 0,
           zIndex: 100,
-          height: 48,
+          height: HEADER_HEIGHT,
+          paddingLeft: 'var(--safe-area-inset-left)',
+          paddingRight: 'var(--safe-area-inset-right)',
           backgroundColor: 'var(--mantine-color-body)',
           borderBottom: '1px solid var(--mantine-color-default-border)',
         }}
       >
-        <Group h="100%" px="md" gap="sm">
+        <Group h={HEADER_HEIGHT} px="md" gap="sm">
           <ActionIcon
             component={Link}
             to="/"
@@ -44,14 +50,17 @@ function SettingsPage() {
         py="md"
         px="md"
         style={{
-          flex: 1,
+          position: 'fixed',
+          top: HEADER_HEIGHT,
+          bottom: 0,
+          left: 'var(--safe-area-inset-left)',
+          right: 'var(--safe-area-inset-right)',
           overflow: 'auto',
-          maxWidth: 600,
-          width: '100%',
-          marginLeft: 'auto',
-          marginRight: 'auto',
+          WebkitOverflowScrolling: 'touch',
+          paddingBottom: 16,
         }}
       >
+        <Box style={{ maxWidth: 600, marginLeft: 'auto', marginRight: 'auto' }}>
         <Tabs defaultValue="config">
           <Tabs.List>
             <Tabs.Tab value="config">Config</Tabs.Tab>
@@ -71,7 +80,8 @@ function SettingsPage() {
             <LocationsTab />
           </Tabs.Panel>
         </Tabs>
+        </Box>
       </Box>
-    </Box>
+    </>
   )
 }
