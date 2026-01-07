@@ -202,7 +202,6 @@ export function AddBookModal({
       onClose={handleClose}
       title="Add Book"
       size="md"
-      centered
     >
       <Tabs value={activeTab} onChange={setActiveTab}>
         <Tabs.List>

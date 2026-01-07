@@ -205,7 +205,6 @@ export function BookDetailModal({
       onClose={handleClose}
       title="Book Details"
       size="md"
-      centered
     >
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <Group align="flex-start" gap="md" wrap="nowrap">

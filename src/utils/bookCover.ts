@@ -40,35 +40,26 @@ export function getBookColor(title: string): string {
 }
 
 /**
- * Generate 3-letter initials from a book title
- * - If title has multiple words: First letter of each of first 3 words (e.g., "The Great Gatsby" → "TGG")
- * - If title has 2 words: First letter of each + first letter again (e.g., "American Gods" → "AGa")
- * - If title has 1 word: First 3 letters (e.g., "Dune" → "Dun")
+ * Generate initials from a book title
+ * - If title has 2+ words: First letter of first 2 words (e.g., "Star Force" → "SF")
+ * - If title has 1 word: First 3 letters uppercase (e.g., "Alex" → "ALE")
  */
 export function getBookInitials(title: string): string {
   const words = title.trim().split(/\s+/).filter(Boolean)
 
   if (words.length === 0) {
-    return '???'
+    return '??'
   }
 
   if (words.length === 1) {
-    // Single word: first 3 letters
+    // Single word: first 3 letters uppercase
     const word = words[0]
-    return word.substring(0, 3).padEnd(3, word[0] || '?')
+    return word.substring(0, 3).toUpperCase()
   }
 
-  if (words.length === 2) {
-    // Two words: first letter of each + first letter again
-    const first = words[0][0] || '?'
-    const second = words[1][0] || '?'
-    const third = words[0][1]?.toLowerCase() || first.toLowerCase()
-    return `${first.toUpperCase()}${second.toUpperCase()}${third}`
-  }
-
-  // Three or more words: first letter of first 3 words
+  // Two or more words: first letter of first 2 words
   return words
-    .slice(0, 3)
+    .slice(0, 2)
     .map((w) => w[0] || '?')
     .join('')
     .toUpperCase()

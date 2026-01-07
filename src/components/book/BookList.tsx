@@ -37,7 +37,13 @@ export function BookList({
   // Loading state
   if (isLoading || books === undefined) {
     return (
-      <Center style={{ flex: 1 }}>
+      <Center
+        style={{
+          flex: 1,
+          minHeight: 0,
+          maxHeight: 'calc(100vh - 120px)',
+        }}
+      >
         <Stack align="center" gap="sm">
           <Loader size="lg" />
           <Text c="dimmed" size="sm">
@@ -51,7 +57,13 @@ export function BookList({
   // Empty state
   if (books.length === 0) {
     return (
-      <Center style={{ flex: 1 }}>
+      <Center
+        style={{
+          flex: 1,
+          minHeight: 0,
+          maxHeight: 'calc(100vh - 120px)',
+        }}
+      >
         <Text c="dimmed" ta="center" px="md">
           {searchTerm.length >= 3
             ? `No '${searchTerm}' book exists yet. Are you buying it?`
@@ -63,19 +75,22 @@ export function BookList({
 
   const virtualItems = virtualizer.getVirtualItems()
 
+  // Calculate actual content height to avoid excessive scroll area
+  const totalSize = virtualizer.getTotalSize()
+  const bottomPadding = 60 // Bottom bar height + safe area approximation
+
   return (
     <Box
       ref={parentRef}
       style={{
         flex: 1,
         overflow: 'auto',
-        // Account for bottom bar height (approx 60px + safe area)
-        paddingBottom: 'calc(60px + var(--safe-area-inset-bottom))',
+        paddingBottom: `calc(${bottomPadding}px + var(--safe-area-inset-bottom))`,
       }}
     >
       <Box
         style={{
-          height: virtualizer.getTotalSize(),
+          height: totalSize,
           width: '100%',
           position: 'relative',
         }}

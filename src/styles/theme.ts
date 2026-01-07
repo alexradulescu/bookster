@@ -25,6 +25,33 @@ export const theme = createTheme({
     fontFamily:
       '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
   },
-  defaultRadius: 'md',
+  defaultRadius: 'xl',
   cursorType: 'pointer',
+  components: {
+    TextInput: {
+      defaultProps: {
+        radius: 'xl',
+      },
+    },
+    Textarea: {
+      defaultProps: {
+        radius: 'xl',
+      },
+    },
+    Select: {
+      defaultProps: {
+        radius: 'xl',
+      },
+    },
+    MultiSelect: {
+      defaultProps: {
+        radius: 'xl',
+      },
+    },
+    Button: {
+      defaultProps: {
+        radius: 'xl',
+      },
+    },
+  },
 })

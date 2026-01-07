@@ -22,8 +22,10 @@ export function Header() {
         <ActionIcon
           component={Link}
           to="/settings"
-          variant="subtle"
+          variant="light"
+          color="gray"
           size="lg"
+          radius="xl"
           aria-label="Settings"
         >
           <Settings size={20} />

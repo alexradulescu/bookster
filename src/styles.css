@@ -20,3 +20,18 @@ html, body, #app {
 * {
   -webkit-tap-highlight-color: transparent;
 }
+
+/* Mobile modal positioning - bottom sheet style */
+@media (max-width: 768px) {
+  .mantine-Modal-root .mantine-Modal-inner {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .mantine-Modal-root .mantine-Modal-content {
+    max-height: 80svh;
+    border-radius: var(--mantine-radius-lg) var(--mantine-radius-lg) 0 0;
+    margin-bottom: 0;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+}
