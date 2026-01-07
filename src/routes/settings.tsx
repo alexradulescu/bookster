@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { Container, Title, ActionIcon, Group, Box, Tabs } from '@mantine/core'
+import { Title, ActionIcon, Group, Box, Tabs } from '@mantine/core'
 import { ArrowLeft } from 'lucide-react'
 import { ConfigTab } from '../components/settings/ConfigTab'
 import { CategoriesTab } from '../components/settings/CategoriesTab'
@@ -27,8 +27,10 @@ function SettingsPage() {
           <ActionIcon
             component={Link}
             to="/"
-            variant="subtle"
+            variant="light"
+            color="gray"
             size="lg"
+            radius="xl"
             aria-label="Back to books"
           >
             <ArrowLeft size={20} />
@@ -38,7 +40,18 @@ function SettingsPage() {
           </Title>
         </Group>
       </Box>
-      <Container size="sm" py="md" style={{ flex: 1, overflow: 'auto' }}>
+      <Box
+        py="md"
+        px="md"
+        style={{
+          flex: 1,
+          overflow: 'auto',
+          maxWidth: 600,
+          width: '100%',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+        }}
+      >
         <Tabs defaultValue="config">
           <Tabs.List>
             <Tabs.Tab value="config">Config</Tabs.Tab>
@@ -58,7 +71,7 @@ function SettingsPage() {
             <LocationsTab />
           </Tabs.Panel>
         </Tabs>
-      </Container>
+      </Box>
     </Box>
   )
 }

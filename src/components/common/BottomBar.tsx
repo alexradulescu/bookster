@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from 'react'
 import { Group, TextInput, ActionIcon, Box } from '@mantine/core'
 import { Plus, X, Search } from 'lucide-react'
 
@@ -12,24 +13,49 @@ export function BottomBar({
   onSearchChange,
   onAddClick,
 }: BottomBarProps) {
+  const [keyboardOffset, setKeyboardOffset] = useState(0)
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    const viewport = window.visualViewport
+    if (!viewport) return
+
+    const handleResize = () => {
+      // Calculate keyboard height by comparing viewport height to window height
+      const keyboardHeight = window.innerHeight - viewport.height
+      // Only apply offset if keyboard is likely open (height > 100px)
+      setKeyboardOffset(keyboardHeight > 100 ? keyboardHeight : 0)
+    }
+
+    viewport.addEventListener('resize', handleResize)
+    viewport.addEventListener('scroll', handleResize)
+
+    return () => {
+      viewport.removeEventListener('resize', handleResize)
+      viewport.removeEventListener('scroll', handleResize)
+    }
+  }, [])
+
   return (
     <Box
       component="footer"
       style={{
         position: 'fixed',
-        bottom: 0,
+        bottom: keyboardOffset,
         left: 0,
         right: 0,
         zIndex: 100,
         backgroundColor: 'var(--mantine-color-body)',
         borderTop: '1px solid var(--mantine-color-default-border)',
-        paddingBottom: 'calc(var(--safe-area-inset-bottom) + 2px)',
+        paddingBottom: keyboardOffset > 0 ? 4 : 'calc(var(--safe-area-inset-bottom) + 2px)',
         paddingLeft: 'var(--safe-area-inset-left)',
         paddingRight: 'var(--safe-area-inset-right)',
+        transition: 'bottom 0.1s ease-out',
       }}
     >
       <Group gap={8} p="sm" wrap="nowrap">
         <TextInput
+          ref={inputRef}
           placeholder="Search..."
           value={searchValue}
           onChange={(e) => onSearchChange(e.currentTarget.value)}
@@ -39,6 +65,7 @@ export function BottomBar({
               <ActionIcon
                 variant="subtle"
                 size="sm"
+                radius="xl"
                 onClick={() => onSearchChange('')}
                 aria-label="Clear search"
               >
@@ -47,6 +74,7 @@ export function BottomBar({
             ) : null
           }
           style={{ flex: 1 }}
+          radius="xl"
           styles={{
             input: {
               fontSize: 16, // Prevent iOS zoom on focus
@@ -56,6 +84,7 @@ export function BottomBar({
         <ActionIcon
           variant="filled"
           size="lg"
+          radius="xl"
           onClick={onAddClick}
           aria-label="Add book"
         >

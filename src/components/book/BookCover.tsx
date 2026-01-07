@@ -6,10 +6,11 @@ interface BookCoverProps {
   size?: 'sm' | 'md' | 'lg'
 }
 
+// sm size matches title (20px) + author (14px) + badge row (20px) + gaps (8px) = ~62px
 const SIZES = {
-  sm: { width: 32, height: 48, fontSize: 10 },
-  md: { width: 40, height: 60, fontSize: 11 },
-  lg: { width: 60, height: 90, fontSize: 12 },
+  sm: { width: 40, height: 62, fontSize: 16 },
+  md: { width: 48, height: 72, fontSize: 16 },
+  lg: { width: 60, height: 90, fontSize: 16 },
 }
 
 export function BookCover({ title, size = 'sm' }: BookCoverProps) {
@@ -28,8 +29,7 @@ export function BookCover({ title, size = 'sm' }: BookCoverProps) {
         borderRadius: 4,
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'flex-start',
-        paddingLeft: 4,
+        justifyContent: 'center',
         boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
       }}
     >
