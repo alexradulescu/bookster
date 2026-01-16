@@ -4,6 +4,7 @@ import { ArrowLeft } from 'lucide-react'
 import { ConfigTab } from '../components/settings/ConfigTab'
 import { CategoriesTab } from '../components/settings/CategoriesTab'
 import { LocationsTab } from '../components/settings/LocationsTab'
+import { DuplicatesTab } from '../components/settings/DuplicatesTab'
 
 export const Route = createFileRoute('/settings')({
   component: SettingsPage,
@@ -57,6 +58,7 @@ function SettingsPage() {
             <Tabs.Tab value="config">Config</Tabs.Tab>
             <Tabs.Tab value="categories">Categories</Tabs.Tab>
             <Tabs.Tab value="locations">Locations</Tabs.Tab>
+            <Tabs.Tab value="duplicates">Duplicates</Tabs.Tab>
           </Tabs.List>
 
           <Tabs.Panel value="config" pt="md">
@@ -69,6 +71,10 @@ function SettingsPage() {
 
           <Tabs.Panel value="locations" pt="md">
             <LocationsTab />
+          </Tabs.Panel>
+
+          <Tabs.Panel value="duplicates" pt="md">
+            <DuplicatesTab />
           </Tabs.Panel>
         </Tabs>
       </Box>
