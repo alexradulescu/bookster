@@ -1,5 +1,6 @@
+import { useState } from 'react'
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { Title, ActionIcon, Group, Box, Tabs } from '@mantine/core'
+import { Title, ActionIcon, Group, Box, SegmentedControl } from '@mantine/core'
 import { ArrowLeft } from 'lucide-react'
 import { ConfigTab } from '../components/settings/ConfigTab'
 import { CategoriesTab } from '../components/settings/CategoriesTab'
@@ -11,6 +12,8 @@ export const Route = createFileRoute('/settings')({
 })
 
 function SettingsPage() {
+  const [activeTab, setActiveTab] = useState('config')
+
   return (
     <Box style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       <Box
@@ -53,30 +56,23 @@ function SettingsPage() {
           marginRight: 'auto',
         }}
       >
-        <Tabs defaultValue="config">
-          <Tabs.List>
-            <Tabs.Tab value="config">Config</Tabs.Tab>
-            <Tabs.Tab value="categories">Categories</Tabs.Tab>
-            <Tabs.Tab value="locations">Locations</Tabs.Tab>
-            <Tabs.Tab value="duplicates">Duplicates</Tabs.Tab>
-          </Tabs.List>
+        <SegmentedControl
+          value={activeTab}
+          onChange={setActiveTab}
+          fullWidth
+          data={[
+            { label: 'Config', value: 'config' },
+            { label: 'Categories', value: 'categories' },
+            { label: 'Locations', value: 'locations' },
+            { label: 'Duplicates', value: 'duplicates' },
+          ]}
+          style={{ marginBottom: 16 }}
+        />
 
-          <Tabs.Panel value="config" pt="md">
-            <ConfigTab />
-          </Tabs.Panel>
-
-          <Tabs.Panel value="categories" pt="md">
-            <CategoriesTab />
-          </Tabs.Panel>
-
-          <Tabs.Panel value="locations" pt="md">
-            <LocationsTab />
-          </Tabs.Panel>
-
-          <Tabs.Panel value="duplicates" pt="md">
-            <DuplicatesTab />
-          </Tabs.Panel>
-        </Tabs>
+        {activeTab === 'config' && <ConfigTab />}
+        {activeTab === 'categories' && <CategoriesTab />}
+        {activeTab === 'locations' && <LocationsTab />}
+        {activeTab === 'duplicates' && <DuplicatesTab />}
       </Box>
     </Box>
   )
