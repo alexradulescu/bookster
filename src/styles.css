@@ -24,8 +24,8 @@ html, body, #app {
   background:
     /* Art deco fan pattern - very faded */
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%23c4b5a0' stroke-width='0.5' opacity='0.12'%3E%3Cpath d='M0 80 L40 40 L80 80'/%3E%3Cpath d='M0 80 L40 50 L80 80'/%3E%3Cpath d='M0 80 L40 60 L80 80'/%3E%3Cpath d='M40 80 L40 40'/%3E%3Cpath d='M20 80 L40 40 L60 80'/%3E%3Ccircle cx='40' cy='40' r='3'/%3E%3Ccircle cx='40' cy='40' r='8'/%3E%3C/g%3E%3Cg fill='none' stroke='%23c4b5a0' stroke-width='0.5' opacity='0.12' transform='translate(40,-40)'%3E%3Cpath d='M0 80 L40 40 L80 80'/%3E%3Cpath d='M0 80 L40 50 L80 80'/%3E%3Cpath d='M0 80 L40 60 L80 80'/%3E%3Cpath d='M40 80 L40 40'/%3E%3Cpath d='M20 80 L40 40 L60 80'/%3E%3Ccircle cx='40' cy='40' r='3'/%3E%3Ccircle cx='40' cy='40' r='8'/%3E%3C/g%3E%3Cg fill='none' stroke='%23c4b5a0' stroke-width='0.5' opacity='0.12' transform='translate(-40,-40)'%3E%3Cpath d='M0 80 L40 40 L80 80'/%3E%3Cpath d='M0 80 L40 50 L80 80'/%3E%3Cpath d='M0 80 L40 60 L80 80'/%3E%3Cpath d='M40 80 L40 40'/%3E%3Cpath d='M20 80 L40 40 L60 80'/%3E%3Ccircle cx='40' cy='40' r='3'/%3E%3Ccircle cx='40' cy='40' r='8'/%3E%3C/g%3E%3C/svg%3E"),
-    /* Soft radial vignette for elegant depth */
-    radial-gradient(ellipse at 50% 0%, rgba(255, 252, 248, 0.95) 0%, transparent 60%),
+    /* Soft radial vignette for elegant depth - reduced opacity to let pattern show through */
+    radial-gradient(ellipse at 50% 0%, rgba(255, 252, 248, 0.4) 0%, transparent 60%),
     radial-gradient(ellipse at 100% 100%, rgba(232, 221, 212, 0.3) 0%, transparent 50%),
     radial-gradient(ellipse at 0% 100%, rgba(201, 212, 197, 0.2) 0%, transparent 50%),
     /* Base gradient with warmer tones */
@@ -41,8 +41,8 @@ html, body, #app {
   background:
     /* Art deco fan pattern - very faded for dark mode */
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%23a08060' stroke-width='0.5' opacity='0.08'%3E%3Cpath d='M0 80 L40 40 L80 80'/%3E%3Cpath d='M0 80 L40 50 L80 80'/%3E%3Cpath d='M0 80 L40 60 L80 80'/%3E%3Cpath d='M40 80 L40 40'/%3E%3Cpath d='M20 80 L40 40 L60 80'/%3E%3Ccircle cx='40' cy='40' r='3'/%3E%3Ccircle cx='40' cy='40' r='8'/%3E%3C/g%3E%3Cg fill='none' stroke='%23a08060' stroke-width='0.5' opacity='0.08' transform='translate(40,-40)'%3E%3Cpath d='M0 80 L40 40 L80 80'/%3E%3Cpath d='M0 80 L40 50 L80 80'/%3E%3Cpath d='M0 80 L40 60 L80 80'/%3E%3Cpath d='M40 80 L40 40'/%3E%3Cpath d='M20 80 L40 40 L60 80'/%3E%3Ccircle cx='40' cy='40' r='3'/%3E%3Ccircle cx='40' cy='40' r='8'/%3E%3C/g%3E%3Cg fill='none' stroke='%23a08060' stroke-width='0.5' opacity='0.08' transform='translate(-40,-40)'%3E%3Cpath d='M0 80 L40 40 L80 80'/%3E%3Cpath d='M0 80 L40 50 L80 80'/%3E%3Cpath d='M0 80 L40 60 L80 80'/%3E%3Cpath d='M40 80 L40 40'/%3E%3Cpath d='M20 80 L40 40 L60 80'/%3E%3Ccircle cx='40' cy='40' r='3'/%3E%3Ccircle cx='40' cy='40' r='8'/%3E%3C/g%3E%3C/svg%3E"),
-    /* Soft vignette for depth */
-    radial-gradient(ellipse at 50% 0%, rgba(30, 28, 25, 0.95) 0%, transparent 60%),
+    /* Soft vignette for depth - reduced opacity to let pattern show through */
+    radial-gradient(ellipse at 50% 0%, rgba(30, 28, 25, 0.4) 0%, transparent 60%),
     radial-gradient(ellipse at 100% 100%, rgba(60, 50, 40, 0.2) 0%, transparent 50%),
     radial-gradient(ellipse at 0% 100%, rgba(50, 60, 50, 0.15) 0%, transparent 50%),
     /* Base gradient */
