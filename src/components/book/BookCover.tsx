@@ -1,5 +1,10 @@
 import { Box, Text } from '@mantine/core'
-import { getBookColor, getBookInitials, getContrastColor } from '../../utils/bookCover'
+import {
+  getBookColor,
+  getBookInitials,
+  getContrastColor,
+  getBookPattern,
+} from '../../utils/bookCover'
 
 interface BookCoverProps {
   title: string
@@ -30,6 +35,7 @@ export function BookCover({ title, size = 'sm' }: BookCoverProps) {
   const dimensions = SIZES[size]
   const spineColor = darkenColor(backgroundColor, 15)
   const spineShadowColor = darkenColor(backgroundColor, 25)
+  const pattern = getBookPattern(title, backgroundColor)
 
   return (
     <Box
@@ -78,7 +84,8 @@ export function BookCover({ title, size = 'sm' }: BookCoverProps) {
             inset 2px 0 4px rgba(255,255,255,0.15)
           `,
           background: `
-            linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%, rgba(0,0,0,0.05) 100%),
+            linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 50%, rgba(0,0,0,0.05) 100%),
+            ${pattern},
             ${backgroundColor}
           `,
         }}
