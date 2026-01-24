@@ -48,7 +48,7 @@ export function BookCard({
                   key={cat._id}
                   size="xs"
                   variant="light"
-                  color="cyan"
+                  color="sage"
                 >
                   {cat.label}
                 </Badge>
@@ -58,7 +58,7 @@ export function BookCard({
                   key={loc._id}
                   size="xs"
                   variant="light"
-                  color="lime"
+                  color="rose"
                 >
                   {loc.label}
                 </Badge>

@@ -1,21 +1,21 @@
-// Pastel colors for book covers
+// Cozy pastel colors for book covers - warm, welcoming tones
 const PASTEL_COLORS = [
-  '#FFB3BA', // Light pink
-  '#FFDFBA', // Light peach
-  '#FFFFBA', // Light yellow
-  '#BAFFC9', // Light green
-  '#BAE1FF', // Light blue
-  '#E0BBE4', // Light purple
-  '#FEC8D8', // Rose pink
-  '#D4F0F0', // Mint
-  '#CCE2CB', // Sage
-  '#B6CFB6', // Pale green
-  '#F6D6D6', // Blush
-  '#C9B1FF', // Lavender
-  '#FFDAC1', // Light coral
-  '#B5EAD7', // Seafoam
-  '#C7CEEA', // Periwinkle
-  '#E2F0CB', // Lime cream
+  '#E8DDD4', // Warm linen
+  '#D4C4B5', // Soft taupe
+  '#C9D4C5', // Sage mist
+  '#DDE4D5', // Pale sage
+  '#E8D8D4', // Dusty rose
+  '#D8C8C4', // Mauve mist
+  '#E4D8C8', // Cream
+  '#D4D8D4', // Silver sage
+  '#E0D4D8', // Blush gray
+  '#D0DCD4', // Seafoam sage
+  '#DCD8D0', // Parchment
+  '#D8D4DC', // Lavender mist
+  '#E4DCD4', // Warm ivory
+  '#C8D4CC', // Eucalyptus
+  '#DCD0D4', // Rose quartz
+  '#D4DCD8', // Morning mist
 ]
 
 /**

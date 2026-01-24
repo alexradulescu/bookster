@@ -37,7 +37,7 @@ export function ConfigTab() {
       notifications.show({
         title: 'Saved',
         message: 'Default sort order updated',
-        color: 'green',
+        color: 'sage',
       })
     } catch (error) {
       console.error('Failed to update sort order:', error)
@@ -62,7 +62,7 @@ export function ConfigTab() {
       notifications.show({
         title: 'Saved',
         message: 'Theme updated',
-        color: 'green',
+        color: 'sage',
       })
     } catch (error) {
       console.error('Failed to update theme:', error)
