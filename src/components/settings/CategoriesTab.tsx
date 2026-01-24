@@ -52,7 +52,7 @@ export function CategoriesTab() {
         notifications.show({
           title: 'Saved',
           message: 'Category updated',
-          color: 'green',
+          color: 'sage',
         })
         handleCancelEdit()
       } else {
@@ -82,7 +82,7 @@ export function CategoriesTab() {
         notifications.show({
           title: 'Deleted',
           message: 'Category removed',
-          color: 'green',
+          color: 'sage',
         })
       }
     } catch (error) {
@@ -105,7 +105,7 @@ export function CategoriesTab() {
         notifications.show({
           title: 'Added',
           message: 'Category created',
-          color: 'green',
+          color: 'sage',
         })
         setNewLabel('')
         setIsAdding(false)
@@ -169,7 +169,7 @@ export function CategoriesTab() {
                       <>
                         <ActionIcon
                           variant="subtle"
-                          color="green"
+                          color="sage"
                           onClick={handleSaveEdit}
                           disabled={!editValue.trim()}
                         >
@@ -227,7 +227,7 @@ export function CategoriesTab() {
           />
           <ActionIcon
             variant="filled"
-            color="green"
+            color="sage"
             onClick={handleAdd}
             disabled={!newLabel.trim()}
           >

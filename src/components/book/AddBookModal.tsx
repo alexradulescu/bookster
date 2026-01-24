@@ -112,7 +112,7 @@ export function AddBookModal({
         notifications.show({
           title: 'Success',
           message: `"${values.title}" has been added`,
-          color: 'green',
+          color: 'sage',
         })
         // Clear form but keep modal open
         singleForm.reset()
@@ -158,7 +158,7 @@ export function AddBookModal({
       notifications.show({
         title: 'Import Complete',
         message: `Imported ${result.imported} books, skipped ${result.skipped} duplicates, ${result.failed} failed`,
-        color: result.imported > 0 ? 'green' : 'yellow',
+        color: result.imported > 0 ? 'sage' : 'yellow',
       })
 
       // Reset form
@@ -257,7 +257,7 @@ export function AddBookModal({
 
         <Tabs.Panel value="bulk" pt="md">
           <Stack gap="md">
-            <Alert icon={<Info size={16} />} color="blue">
+            <Alert icon={<Info size={16} />} color="sage">
               <Text size="sm">
                 CSV format: title,author,isSample
                 <br />
@@ -286,7 +286,7 @@ export function AddBookModal({
             />
 
             {bulkPreview && (
-              <Alert color={bulkPreview.errors.length > 0 ? 'yellow' : 'green'}>
+              <Alert color={bulkPreview.errors.length > 0 ? 'yellow' : 'sage'}>
                 <Text size="sm">
                   Ready to import {bulkPreview.valid} books
                   {bulkPreview.invalid > 0 && `, ${bulkPreview.invalid} will be skipped (missing data)`}

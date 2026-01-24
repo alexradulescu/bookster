@@ -16,6 +16,18 @@ html, body, #app {
   padding: 0;
 }
 
+/* Warm, welcoming pastel background for light mode */
+[data-mantine-color-scheme="light"] {
+  --mantine-color-body: #fdfcfa;
+  background: linear-gradient(135deg, #fdfcfa 0%, #f8f6f2 50%, #faf5f0 100%);
+}
+
+/* Cozy dark mode with warm undertones */
+[data-mantine-color-scheme="dark"] {
+  --mantine-color-body: #1a1918;
+  background: linear-gradient(135deg, #1a1918 0%, #1f1d1a 50%, #1a1918 100%);
+}
+
 /* Prevent text selection on double tap for mobile */
 * {
   -webkit-tap-highlight-color: transparent;

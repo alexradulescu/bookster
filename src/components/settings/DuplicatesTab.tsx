@@ -111,7 +111,7 @@ export function DuplicatesTab() {
         notifications.show({
           title: 'Book deleted',
           message: `"${bookToDelete.title}" has been removed from your library`,
-          color: 'green',
+          color: 'sage',
         })
       } else {
         notifications.show({
@@ -157,12 +157,12 @@ export function DuplicatesTab() {
         <Box
           p="lg"
           style={{
-            backgroundColor: 'var(--mantine-color-green-light)',
+            backgroundColor: 'var(--mantine-color-sage-light)',
             borderRadius: 'var(--mantine-radius-md)',
           }}
         >
           <Group gap="sm">
-            <CheckCircle size={24} color="var(--mantine-color-green-filled)" />
+            <CheckCircle size={24} color="var(--mantine-color-sage-filled)" />
             <div>
               <Text fw={500}>No duplicates found!</Text>
               <Text size="sm" c="dimmed">

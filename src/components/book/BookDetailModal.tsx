@@ -104,7 +104,7 @@ export function BookDetailModal({
         notifications.show({
           title: 'Saved',
           message: 'Book has been updated',
-          color: 'green',
+          color: 'sage',
         })
         form.resetDirty()
       } else if (result.error === 'duplicate') {
@@ -149,7 +149,7 @@ export function BookDetailModal({
         notifications.show({
           title: 'Deleted',
           message: 'Book has been removed',
-          color: 'green',
+          color: 'sage',
         })
         onClose()
       }
