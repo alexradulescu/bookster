@@ -84,13 +84,14 @@ export function BookList({
           paddingBottom: `calc(${BOTTOM_PADDING}px + var(--safe-area-inset-bottom))`,
         }}
       >
-        {books.map((book) => (
+        {books.map((book, index) => (
           <BookCard
             key={book._id}
             book={book}
             categories={categories}
             locations={locations}
             onClick={() => onBookClick(book)}
+            index={index}
           />
         ))}
       </Box>
@@ -135,6 +136,7 @@ export function BookList({
                 categories={categories}
                 locations={locations}
                 onClick={() => onBookClick(book)}
+                index={virtualRow.index}
               />
             </Box>
           )

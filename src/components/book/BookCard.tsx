@@ -7,6 +7,7 @@ interface BookCardProps {
   categories: Doc<'categories'>[]
   locations: Doc<'locations'>[]
   onClick: () => void
+  index?: number
 }
 
 export function BookCard({
@@ -14,6 +15,7 @@ export function BookCard({
   categories,
   locations,
   onClick,
+  index = 0,
 }: BookCardProps) {
   // Get category and location labels for this book
   const bookCategories = categories.filter((cat) =>
@@ -23,13 +25,19 @@ export function BookCard({
     book.locationIds.includes(loc._id),
   )
 
+  // Zebra striping: alternating subtle backgrounds for elegance
+  const isEven = index % 2 === 0
+
   return (
     <Box
       onClick={onClick}
       style={{
-        padding: 12,
+        padding: '14px 12px',
         cursor: 'pointer',
-        borderBottom: '1px solid var(--mantine-color-default-border)',
+        backgroundColor: isEven
+          ? 'var(--zebra-stripe-light)'
+          : 'var(--zebra-stripe-dark)',
+        transition: 'background-color 0.15s ease',
       }}
     >
       <Group gap="sm" wrap="nowrap" align="flex-start">
