@@ -124,7 +124,7 @@ function HomePage() {
   )
 
   return (
-    <Box style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+    <Box style={{ display: 'flex', flexDirection: 'column', height: '100%', background: 'transparent' }}>
       <Header />
       <BookList
         books={sortedBooks}

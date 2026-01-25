@@ -20,6 +20,7 @@ function RootComponent() {
             paddingBottom: 'var(--safe-area-inset-bottom)',
             paddingLeft: 'var(--safe-area-inset-left)',
             paddingRight: 'var(--safe-area-inset-right)',
+            background: 'transparent',
           }}
         >
           <Outlet />

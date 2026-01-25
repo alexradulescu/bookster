@@ -16,6 +16,11 @@ html, body, #app {
   padding: 0;
 }
 
+/* Ensure app containers are transparent to show the background pattern */
+body, #app, .mantine-AppShell-root {
+  background: transparent !important;
+}
+
 /* Warm, welcoming pastel background for light mode with elegant depth */
 [data-mantine-color-scheme="light"] {
   --mantine-color-body: #fdfcfa;

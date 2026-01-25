@@ -82,6 +82,7 @@ export function BookList({
           flex: 1,
           overflow: 'auto',
           paddingBottom: `calc(${BOTTOM_PADDING}px + var(--safe-area-inset-bottom))`,
+          background: 'transparent',
         }}
       >
         {books.map((book, index) => (
@@ -109,6 +110,7 @@ export function BookList({
         flex: 1,
         overflow: 'auto',
         paddingBottom: `calc(${BOTTOM_PADDING}px + var(--safe-area-inset-bottom))`,
+        background: 'transparent',
       }}
     >
       <Box
