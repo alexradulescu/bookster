@@ -97,14 +97,14 @@ function HomePage() {
     return sortBooks(books, sortOrder, categories ?? [], locations ?? [])
   }, [books, debouncedSearchTerm, settings?.defaultSortOrder, categories, locations])
 
-  // Filter books by selected categories
+  // Filter books by selected categories.
+  // A book is shown only if it has at least one category that is currently ON.
+  // When all pills are ON (nothing deselected), show everything.
   const filteredBooks = useMemo(() => {
     if (!sortedBooks) return undefined
     if (deselectedCategoryIds.size === 0) return sortedBooks
-    return sortedBooks.filter(
-      (book) =>
-        book.categoryIds.length === 0 ||
-        book.categoryIds.some((id) => !deselectedCategoryIds.has(id)),
+    return sortedBooks.filter((book) =>
+      book.categoryIds.some((id) => !deselectedCategoryIds.has(id)),
     )
   }, [sortedBooks, deselectedCategoryIds])
 
