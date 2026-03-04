@@ -9,9 +9,11 @@ interface HeaderProps {
   onToggleCategory?: (id: Id<'categories'>) => void
 }
 
+const EMPTY_SET = new Set<Id<'categories'>>()
+
 export function Header({
   categories = [],
-  deselectedCategoryIds = new Set(),
+  deselectedCategoryIds = EMPTY_SET,
   onToggleCategory,
 }: HeaderProps) {
   const showFilter = categories.length > 0
