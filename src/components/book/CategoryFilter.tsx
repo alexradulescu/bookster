@@ -18,6 +18,9 @@ export function CategoryFilter({
     <Box
       className="category-filter-bar"
       style={{
+        position: 'sticky',
+        top: 48,
+        zIndex: 99,
         backgroundColor: 'var(--mantine-color-body)',
         borderBottom: '1px solid var(--mantine-color-default-border)',
         padding: '8px 12px',
