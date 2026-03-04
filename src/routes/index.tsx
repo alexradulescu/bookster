@@ -4,7 +4,6 @@ import { Box } from '@mantine/core'
 import { Header } from '../components/common/Header'
 import { BottomBar } from '../components/common/BottomBar'
 import { BookList } from '../components/book/BookList'
-import { CategoryFilter } from '../components/book/CategoryFilter'
 import { AddBookModal } from '../components/book/AddBookModal'
 import { BookDetailModal } from '../components/book/BookDetailModal'
 import { useSearchBooks } from '../hooks/useBooks'
@@ -152,11 +151,10 @@ function HomePage() {
 
   return (
     <Box style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-      <Header />
-      <CategoryFilter
+      <Header
         categories={categories ?? []}
-        deselectedIds={deselectedCategoryIds}
-        onToggle={handleToggleCategory}
+        deselectedCategoryIds={deselectedCategoryIds}
+        onToggleCategory={handleToggleCategory}
       />
       <BookList
         books={filteredBooks}
