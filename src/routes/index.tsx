@@ -12,7 +12,7 @@ import { useLocations } from '../hooks/useLocations'
 import { useSettings } from '../hooks/useSettings'
 import { useInitialization } from '../hooks/useInit'
 import { useSearch } from '../hooks/useSearch'
-import type { Doc } from '../../convex/_generated/dataModel'
+import type { Doc, Id } from '../../convex/_generated/dataModel'
 
 export const Route = createFileRoute('/')({
   component: HomePage,
@@ -73,6 +73,9 @@ function HomePage() {
     useSearch({ debounceMs: 150, minLength: 3 })
   const [addModalOpen, setAddModalOpen] = useState(false)
   const [selectedBook, setSelectedBook] = useState<Doc<'books'> | null>(null)
+  const [deselectedCategoryIds, setDeselectedCategoryIds] = useState<
+    Set<Id<'categories'>>
+  >(new Set())
 
   // Initialize app (creates default locations)
   useInitialization()
@@ -92,6 +95,29 @@ function HomePage() {
     const sortOrder = settings?.defaultSortOrder ?? 'dateAdded'
     return sortBooks(books, sortOrder, categories ?? [], locations ?? [])
   }, [books, debouncedSearchTerm, settings?.defaultSortOrder, categories, locations])
+
+  // Filter books by selected categories.
+  // A book is shown only if it has at least one category that is currently ON.
+  // When all pills are ON (nothing deselected), show everything.
+  const filteredBooks = useMemo(() => {
+    if (!sortedBooks) return undefined
+    if (deselectedCategoryIds.size === 0) return sortedBooks
+    return sortedBooks.filter((book) =>
+      book.categoryIds.some((id) => !deselectedCategoryIds.has(id)),
+    )
+  }, [sortedBooks, deselectedCategoryIds])
+
+  const handleToggleCategory = useCallback((id: Id<'categories'>) => {
+    setDeselectedCategoryIds((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) {
+        next.delete(id)
+      } else {
+        next.add(id)
+      }
+      return next
+    })
+  }, [])
 
   const handleAddClick = useCallback(() => {
     setAddModalOpen(true)
@@ -125,9 +151,13 @@ function HomePage() {
 
   return (
     <Box style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-      <Header />
+      <Header
+        categories={categories ?? []}
+        deselectedCategoryIds={deselectedCategoryIds}
+        onToggleCategory={handleToggleCategory}
+      />
       <BookList
-        books={sortedBooks}
+        books={filteredBooks}
         categories={categories ?? []}
         locations={locations ?? []}
         searchTerm={searchValue}
